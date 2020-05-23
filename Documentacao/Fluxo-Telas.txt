@@ -1,0 +1,4 @@
+1- Index: (Apresentação dos produtos cadasttrados e seus preços)
+2- Login(SuperAdmin e Usuário): Um login será responsável pela adição de produtos no ecommerce e o outro um vínculo de conta
+3- Carrinho: Local onde será permitido o Usuário colocar os produtos no carrinho
+4- Tela de Registo(*Possível implementação caso aja tempo): Local onde o usuário irá cadastrar email,login e senha 
