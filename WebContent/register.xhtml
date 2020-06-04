@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>Login</title>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="resources/style_login.css" />
+</h:head>
+<body>
+</body>
+
+<div class="tile">
+	<div class="tile-header">
+		<h2
+			style="color: white; opacity: .75; font-size: 4rem; display: flex; justify-content: center; align-items: center; height: 100%;">Register</h2>
+	</div>
+
+	<div class="tile-body">
+		<h:messages id="messages" errorStyle="color:red"
+			warnStyle="color:orange" infoStyle="color:green" globalOnly="false" />
+		<h:form>
+			<label class="form-input"> <i class="material-icons">person</i>
+				<input type="text" autofocus="true"
+				jsf:value="#{registerController.entity.name}" required="true" /> <span
+				class="label">Username</span> <span class="underline"></span>
+			</label>
+			<label class="form-input"> <i class="material-icons">email</i>
+				<input type="text" autofocus="true"
+				jsf:value="#{registerController.entity.login}" required="true" /> <span
+				class="label">Email</span> <span class="underline"></span>
+			</label>
+			<label class="form-input"> <i class="material-icons">lock</i>
+				<input type="password" jsf:value="#{registerController.entity.password}"
+				required="true" /> <span class="label">Password</span>
+				<div class="underline"></div>
+			</label>
+			<h:commandButton styleClass="btn btn-lg btn-primary float-right"
+				style="background-color: #6266A5; border: 1px solid #6266A5; margin-bottom: 12px;cursor:pointer"
+				value="Registrar" action="#{registerController.registrar}">
+				<f:ajax execute="@form" render="@form messages" />
+			</h:commandButton>
+			<h:commandButton styleClass="btn btn-secondary float-right"
+				style="margin-bottom: 12px; padding-bottom: 9px; padding-top: 9px; margin-right: 6px;"
+				value="Limpar" actionListener="#{registerController.limpar}">
+				<f:ajax execute="@this" render="@form messages" />
+			</h:commandButton>
+
+			
+
+		</h:form>
+	</div>
+</div>
+
+
+</html>

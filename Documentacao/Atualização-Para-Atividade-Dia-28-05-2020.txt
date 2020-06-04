@@ -1,0 +1,29 @@
+Fluxo de telas: 
+Começo:
+	index.xhtml (Rota de Acesso: http://localhost:8080/SmartCommerce/)
+
+	login.xhtml (Rota de Acesso: http://localhost:8080/SmartCommerce/login.xhtml, Observação: Login respeitando hash256 e seus afluentes)
+
+	register.xhtml (Rota de Acesso: http://localhost:8080/SmartCommerce/register.xhtml, Observação: Primeira parte do Crud-Criação O login será apenas para o usuário, o admin será pré cadastrado e decidirá quem será admin e quem não será)
+
+	home.xhtml *Área do Admin* (Rota de Acesso: http://localhost:8080/SmartCommerce/admin_page/home.xhtml, Observação: Área de visualização do crud, onde o admin vê quem são os usuários cadastrados, a barra de pesquisa foi feita através de jquery, onde aparenta ser melhor pois o trabalho é menor para o processamento e processa todas as linhas)
+
+	edit_usuario.xhtml *Área do Admin* (Rota de Acesso: http://localhost:8080/SmartCommerce/admin_page/edit_usuario.xhtml, Observação: O admin controla a área onde altera os usuários, transformando em admin ou não, mudando as informações dos usuários)
+
+Observações Adicionais: 
+
+-Foi utilizado html5 na estilização, porém a parte funcional foi feita em xhtml padrão onde não altera o resultado final.
+
+-A única biblioteca utilizada diferente foram duas bibliotecas para conversão de tag, onde não alteram o resultado nem o resto do framework. Essas bibliotecas adicionam ás tags 'input','a','button' as propriedades jsf:value(Adiciona o valor de uma variável á um input), jsf:action/ActionListener(adiciona ás propriedades de xhtml para os botões e links(Porém é limitado e não é possível á utilização do Ajax))
+
+-A funcionalidade do framework não foi alterada, apenas simplificada algumas partes na view para melhor disposição do ecommerce já que não foi permitida a utilização de primefaces e outros
+
+-Foi utilizado jquery e javascript em algumas partes com intuito de deixar mais interativo 
+
+-Os campos no banco de dados são: Id(Serial), name(String), email(String),password(String),is_admin(Boolean),created_at(LocalDate),updated_at(LocalDate)
+
+-Não foram colocados as anotações de verificações nessa atividade por enquanto mas pretendo colocar mais pra frente, quando tiver mias organizado
+
+Duvidas:
+
+- Existe alguma maneira de exportar o sql do banco por completo? Sem ser o sistema de backup ou a seleção de código por código?

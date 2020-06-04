@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>Admin-Home-Page</title>
+
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../resources/admin_page_style.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
+	<style>
+		ul {
+			list-style-type: none;
+		}
+	</style>
+</h:head>
+<h:body>
+	<div id="wrapper" class="animate">
+		<nav
+			class="navbar header-top fixed-top navbar-expand-lg  navbar-dark bg-dark">
+			<span class="navbar-toggler-icon leftmenutrigger"></span> <a
+				class="navbar-brand" href="#">SmartCommerce</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarText" aria-controls="navbarText"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarText">
+				<ul class="navbar-nav animate side-nav">
+					<li class="nav-item"><a class="nav-link" href="#">Home <span
+							class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Side
+							Menu Items</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Pricing</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav ml-md-auto d-md-flex">
+					<li class="nav-item"><a class="nav-link" href="#">Home <span
+							class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Top Menu
+							Items</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Pricing</a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+
+		<div class="row justify-content-center">
+			<div class="col-12 ">
+				<div class="card-body row no-gutters align-items-center">
+					<div class="col-auto">
+						<i class="fas fa-search h4 text-body"></i>
+					</div>
+					<!--end of col-->
+					<div class="col">
+						<input
+							class="form-control form-control-lg form-control-borderless"
+							id="txt_consulta" type="search" placeholder="Pesquisar Usuários" />
+					</div>
+					<!--end of col-->
+				</div>
+
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="card">
+					<div class="card-body">
+						<h:messages id="messages" errorStyle="color:red"
+							warnStyle="color:orange"
+							infoStyle="color:white;background-color:green;padding: 5px;border-radius: 5px;margin-left: -50px" globalOnly="false" />
+						<h5 class="card-title">Usuários</h5>
+						<h:form id="formDataTable">
+							<h:dataTable id="dataTable"
+								headerClasses="none,none,none,none,none,none,right"
+								styleClass="table" value="#{adminHomeController.usuario}"
+								var="obj">
+								<h:column>
+									<f:facet name="header">Id</f:facet>
+									<h:outputLabel value="#{obj.id}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Nome</f:facet>
+									<h:outputLabel value="#{obj.name}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Email</f:facet>
+									<h:outputLabel value="#{obj.login}" />
+
+								</h:column>
+								<h:column>
+									<f:facet name="header">Senha</f:facet>
+									<h:outputLabel value="#{obj.password}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Admin</f:facet>
+									<h:outputLabel value="#{obj.is_admin}" />
+								</h:column>
+								<h:column>
+									<f:facet name="header">Criação</f:facet>
+									<h:outputLabel value="#{obj.created_at}">
+										<f:convertDateTime pattern="dd-MM-yyyy" type="localDate" />
+
+									</h:outputLabel>
+								</h:column>
+								<h:column>
+									<f:facet name="header">Update</f:facet>
+									<h:outputLabel value="#{obj.updated_at}">
+										<f:convertDateTime pattern="dd-MM-yyyy" type="localDate" />
+
+									</h:outputLabel>
+								</h:column>
+								<h:column headerClass="header">
+									<f:facet name="header">Ação</f:facet>
+
+										<h:commandLink id="delet_buttom" style="margin-left: 5px"
+											styleClass="btn btn-danger float-right" value="Deletar"
+											actionListener="#{adminHomeController.deletarUsuario(obj)}">
+											<f:ajax execute="@this" render="@all" />
+										</h:commandLink>
+
+										<h:commandButton styleClass="btn btn-info float-right"
+											value="Editar" action="#{adminHomeController.edit(obj)}" />
+
+								</h:column>
+							</h:dataTable>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(document).ready(function() {
+			$('.leftmenutrigger').on('click', function(e) {
+				$('.side-nav').toggleClass("open");
+				e.preventDefault();
+			});
+		});
+
+		$('a').on('click', function() {
+			setTimeout(function() {
+				window.location.reload(1);
+			}, 2000);
+		});
+
+		$('input#txt_consulta').quicksearch('table tbody tr');
+	</script>
+</h:body>
+</html>
