@@ -20,10 +20,10 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
 	<style>
-		ul {
-			list-style-type: none;
-		}
-	</style>
+ul {
+	list-style-type: none;
+}
+</style>
 </h:head>
 <h:body>
 	<div id="wrapper" class="animate">
@@ -47,13 +47,14 @@
 					</li>
 				</ul>
 				<ul class="navbar-nav ml-md-auto d-md-flex">
-					<li class="nav-item"><a class="nav-link" href="#">Home <span
-							class="sr-only">(current)</span>
-					</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Top Menu
-							Items</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Pricing</a>
-					</li>
+					<li class="nav-item" style="color:white;padding-top:5px;padding-right:5px">Olá #{adminHomeController.usarioLogado.name}</li>
+					<li class="nav-item"><h:form>
+							<h:commandButton value="Sair"
+								styleClass="btn btn-primary"
+								action="#{adminHomeController.encerrarSessao}"
+								rendered="#{adminHomeController.usarioLogado != null}"
+								style="color:white" />
+						</h:form></li>
 				</ul>
 			</div>
 		</nav>
@@ -81,7 +82,8 @@
 					<div class="card-body">
 						<h:messages id="messages" errorStyle="color:red"
 							warnStyle="color:orange"
-							infoStyle="color:white;background-color:green;padding: 5px;border-radius: 5px;margin-left: -50px" globalOnly="false" />
+							infoStyle="color:white;background-color:green;padding: 5px;border-radius: 5px;margin-left: -50px"
+							globalOnly="false" />
 						<h5 class="card-title">Usuários</h5>
 						<h:form id="formDataTable">
 							<h:dataTable id="dataTable"
@@ -126,14 +128,14 @@
 								<h:column headerClass="header">
 									<f:facet name="header">Ação</f:facet>
 
-										<h:commandLink id="delet_buttom" style="margin-left: 5px"
-											styleClass="btn btn-danger float-right" value="Deletar"
-											actionListener="#{adminHomeController.deletarUsuario(obj)}">
-											<f:ajax execute="@this" render="@all" />
-										</h:commandLink>
+									<h:commandLink id="delet_buttom" style="margin-left: 5px"
+										styleClass="btn btn-danger float-right" value="Deletar"
+										actionListener="#{adminHomeController.deletarUsuario(obj)}">
+										<f:ajax execute="@this" render="@all" />
+									</h:commandLink>
 
-										<h:commandButton styleClass="btn btn-info float-right"
-											value="Editar" action="#{adminHomeController.edit(obj)}" />
+									<h:commandButton styleClass="btn btn-info float-right"
+										value="Editar" action="#{adminHomeController.edit(obj)}" />
 
 								</h:column>
 							</h:dataTable>

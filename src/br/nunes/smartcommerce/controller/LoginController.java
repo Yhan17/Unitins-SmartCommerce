@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
+import br.nunes.smartcommerce.application.Session;
 import br.nunes.smartcommerce.application.Util;
 import br.nunes.smartcommerce.dao.UserDAO;
 import br.nunes.smartcommerce.model.User;
@@ -23,8 +24,10 @@ public class LoginController implements Serializable {
 		UserDAO dao = new UserDAO();
 		User user = dao.verificarLoginSenha(getUser().getLogin(), Util.hashSHA256(getUser().getPassword()));
 		
-		if (user != null)
+		if (user != null){
+			Session.getInstance().setAttribute("usuarioLogado", user);
 			return "/admin_page/home.xhtml?faces-redirect=true";
+		}
 		Util.addErrorMessage("Login ou Senha inválido.");
 		return "";
 	}

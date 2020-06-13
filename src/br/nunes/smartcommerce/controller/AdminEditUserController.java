@@ -6,6 +6,7 @@ import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import br.nunes.smartcommerce.application.Session;
 import br.nunes.smartcommerce.application.Util;
 import br.nunes.smartcommerce.dao.UserDAO;
 import br.nunes.smartcommerce.model.User;
@@ -18,6 +19,8 @@ public class AdminEditUserController extends Controller<User>{
 	 * 
 	 */
 	private static final long serialVersionUID = 1053544890511000312L;
+	
+	private User usuarioLogado;
 
 	public AdminEditUserController() {
 		super(new UserDAO());
@@ -64,7 +67,7 @@ public class AdminEditUserController extends Controller<User>{
 						    .getFlash().setKeepMessages(true);
 				
 					Thread.sleep(1000);
-					return "/admin_page/home.xhtm?faces-redirect=true";
+					return "/admin_page/home.xhtml?faces-redirect=true";
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -76,6 +79,22 @@ public class AdminEditUserController extends Controller<User>{
 			}
 		}
 		return "";
+	}
+
+	public User getUsuarioLogado() {
+		if (usuarioLogado == null) // buscando o usuario da sessao
+			usuarioLogado = (User) Session.getInstance().getAttribute("usuarioLogado");	
+		return usuarioLogado;
+	}
+	
+	public String encerrarSessao() {
+		// encerrando a sessao
+		Session.getInstance().invalidateSession();
+		return "/index.xhtml?faces-redirect=true";
+	}
+	
+	public void setUsuarioLogado(User usarioLogado) {
+		this.usuarioLogado = usarioLogado;
 	}
 	
 }
