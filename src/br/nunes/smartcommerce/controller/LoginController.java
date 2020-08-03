@@ -24,9 +24,12 @@ public class LoginController implements Serializable {
 		UserDAO dao = new UserDAO();
 		User user = dao.verificarLoginSenha(getUser().getLogin(), Util.hashSHA256(getUser().getPassword()));
 		
-		if (user != null){
+		if (user != null && user.getIs_admin() == true){
 			Session.getInstance().setAttribute("usuarioLogado", user);
 			return "/admin_page/home.xhtml?faces-redirect=true";
+		}else if(user != null && user.getIs_admin() == false) {
+			Session.getInstance().setAttribute("usuarioLogado", user);
+			return "/index_user_loged.xhtml?faces-redirect=true";
 		}
 		Util.addErrorMessage("Login ou Senha inválido.");
 		return "";

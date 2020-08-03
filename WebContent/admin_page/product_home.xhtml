@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:jsf="http://xmlns.jcp.org/jsf"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
-	<title>Admin-Home-Page</title>
+	<title>Product List</title>
 	<meta charset="utf-8"/>
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css" />
@@ -49,27 +50,35 @@ ul {
 				<ul class="navbar-nav ml-md-auto d-md-flex">
 					<li class="nav-item"
 						style="color: white; padding-top: 5px; padding-right: 5px">Olá
-						#{adminHomeController.usarioLogado.name}</li>
+						#{productController.usarioLogado.name}</li>
 					<li class="nav-item"><h:form>
 							<h:commandButton value="Sair" styleClass="btn btn-primary"
-								action="#{adminHomeController.encerrarSessao}"
-								rendered="#{adminHomeController.usarioLogado != null}"
+								action="#{productController.encerrarSessao}"
+								rendered="#{productController.usarioLogado != null}"
 								style="color:white" />
 						</h:form></li>
 				</ul>
 			</div>
 		</nav>
 
+
 		<div class="row justify-content-center">
 			<div class="col-12 ">
 				<div class="card-body row no-gutters align-items-center">
-					<div class="col-auto">
-					</div>
-					<!--end of col-->
+
 					<div class="col">
 						<input
 							class="form-control form-control-lg form-control-borderless"
-							id="txt_consulta" type="search" placeholder="Pesquisar Usuários" />
+							id="txt_consulta" type="search" placeholder="Pesquisar Produtos" />
+					</div>
+					<div class="col-auto" style="margin-left: 10px">
+						<h:form>
+							<h:commandButton value="Cadastrar Produtos"
+								action="#{productController.addNew}"
+								styleClass="btn btn-info float-right"
+								style="padding-top:10px;padding-bottom:10px">
+							</h:commandButton>
+						</h:form>
 					</div>
 					<!--end of col-->
 				</div>
@@ -84,11 +93,11 @@ ul {
 							warnStyle="color:orange"
 							infoStyle="color:white;background-color:green;padding: 5px;border-radius: 5px;margin-left: -50px"
 							globalOnly="false" />
-						<h5 class="card-title">Usuários</h5>
+						<h5 class="card-title">Produtos</h5>
 						<h:form id="formDataTable">
 							<h:dataTable id="dataTable"
 								headerClasses="none,none,none,none,none,none,right"
-								styleClass="table" value="#{adminHomeController.usuario}"
+								styleClass="table" value="#{productController.listaProduto}"
 								var="obj">
 								<h:column>
 									<f:facet name="header">Id</f:facet>
@@ -99,27 +108,40 @@ ul {
 									<h:outputLabel value="#{obj.name}" />
 								</h:column>
 								<h:column>
-									<f:facet name="header">Email</f:facet>
-									<h:outputLabel value="#{obj.login}" />
+									<f:facet name="header">Descrição</f:facet>
+									<h:outputLabel value="#{obj.description}" />
 
 								</h:column>
 								<h:column>
-									<f:facet name="header">Senha</f:facet>
-									<h:outputLabel value="#{obj.password}" />
+									<f:facet name="header">Marca</f:facet>
+									<h:outputLabel value="#{obj.brand.label}" />
 								</h:column>
 								<h:column>
-									<f:facet name="header">Admin</f:facet>
-									<h:outputLabel value="#{obj.is_admin}" />
+									<f:facet name="header">Estoque</f:facet>
+									<h:outputLabel value="#{obj.stock}" />
 								</h:column>
 								<h:column>
-									<f:facet name="header">Criação</f:facet>
+									<f:facet name="header">Data Lançamento</f:facet>
+									<h:outputLabel value="#{obj.release_date}">
+										<f:convertDateTime pattern="dd-MM-yyyy" type="localDate" />
+
+									</h:outputLabel>
+								</h:column>
+								<h:column>
+									<f:facet name="header">Preço</f:facet>
+									<h:outputLabel value="#{obj.price}">
+
+									</h:outputLabel>
+								</h:column>
+								<h:column>
+									<f:facet name="header">Data Criação</f:facet>
 									<h:outputLabel value="#{obj.created_at}">
 										<f:convertDateTime pattern="dd-MM-yyyy" type="localDate" />
 
 									</h:outputLabel>
 								</h:column>
 								<h:column>
-									<f:facet name="header">Update</f:facet>
+									<f:facet name="header">Data Update</f:facet>
 									<h:outputLabel value="#{obj.updated_at}">
 										<f:convertDateTime pattern="dd-MM-yyyy" type="localDate" />
 
@@ -130,12 +152,12 @@ ul {
 
 									<h:commandLink id="delet_buttom" style="margin-left: 5px"
 										styleClass="btn btn-danger float-right" value="Deletar"
-										actionListener="#{adminHomeController.deletarUsuario(obj)}">
+										actionListener="#{productController.deletarProduto(obj)}">
 										<f:ajax execute="@this" render="@form formDataTable" />
 									</h:commandLink>
 
 									<h:commandButton styleClass="btn btn-info float-right"
-										value="Editar" action="#{adminHomeController.edit(obj)}" />
+										value="Editar" action="#{productController.edit(obj)}" />
 
 								</h:column>
 							</h:dataTable>

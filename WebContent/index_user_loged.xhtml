@@ -45,7 +45,15 @@
 					</li>
 					<li class="nav-item"><a class="nav-link" href="#">Cart(0)</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="login.xhtml">Login</a>
+					<li class="nav-item"><a class="nav-link" href="#">#{indexUserController.usarioLogado.name}</a>
+					<li class="nav-item"><h:form>
+							<h:commandButton value="Sair"
+							styleClass="btn btn-danger"
+							action="#{indexUserController.encerrarSessao}"
+							rendered="#{indexUserController.usarioLogado != null}"
+							style="color:white" />
+						</h:form>
+					</li>
 					</li>
 				</ul>
 			</div>

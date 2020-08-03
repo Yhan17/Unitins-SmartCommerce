@@ -4,7 +4,7 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
-	<title>Editar Usuário</title>
+	<title>Admin-Home-Page</title>
 
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css" />
@@ -25,20 +25,18 @@
 	<div id="wrapper" class="animate">
 		<nav
 			class="navbar header-top fixed-top navbar-expand-lg  navbar-dark bg-dark">
-			<a href="home.xhtml">
-			<svg width="4em" height="2em" viewBox="0 0 16 16"
-				class="bi bi-arrow-left" fill="white"
-				xmlns="http://www.w3.org/2000/svg">
-  				<path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.354 10.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L6.207 7.5H11a.5.5 0 0 1 0 1H6.207l2.147 2.146z"/>
+			<a href="product_home.xhtml"> <svg width="4em" height="2em"
+					viewBox="0 0 16 16" class="bi bi-arrow-left" fill="white"
+					xmlns="http://www.w3.org/2000/svg">
+  				<path fill-rule="evenodd"
+						d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm6.354 10.646a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L6.207 7.5H11a.5.5 0 0 1 0 1H6.207l2.147 2.146z" />
 			</svg>
-			</a>
-			<a class="navbar-brand" href="#">SmartCommerce</a>
+			</a> <a class="navbar-brand" href="#">SmartCommerce</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarText" aria-controls="navbarText"
 				aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-
 			<div class="collapse navbar-collapse" id="navbarText">
 				<ul class="navbar-nav animate side-nav">
 					<li class="nav-item"><a class="nav-link" href="#">Home <span
@@ -52,11 +50,11 @@
 				<ul class="navbar-nav ml-md-auto d-md-flex">
 					<li class="nav-item"
 						style="color: white; padding-top: 5px; padding-right: 5px">Olá
-						#{editUserController.usuarioLogado.name}</li>
+						#{editProductController.usuarioLogado.name}</li>
 					<li class="nav-item"><h:form>
 							<h:commandButton value="Sair" styleClass="btn btn-primary"
-								action="#{editUserController.encerrarSessao}"
-								rendered="#{editUserController.usuarioLogado != null}"
+								action="#{editProductController.encerrarSessao}"
+								rendered="#{editProductController.usuarioLogado != null}"
 								style="color:white" />
 						</h:form></li>
 				</ul>
@@ -67,14 +65,14 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div class="contact-info">
-					<img src="../resources/img/logoUsers.png" style="width: 170px;"
-						alt="LogoUsuario" />
-					<h2 style="text-align: center; color: white">Usuário</h2>
+					<img src="../resources/img/phone.svg" style="width: 170px;"
+						alt="LogoProdutos" />
+					<h2 style="text-align: center; color: white">Produtos</h2>
 				</div>
 			</div>
 			<div class="col-md-9">
-				<h:form>
 					<div class="contact-form">
+				<h:form enctype="multipart/form-data">
 						<h:messages id="mensagem" errorStyle="color:red"
 							warnStyle="color:orange" infoStyle="color:green"
 							globalOnly="false" />
@@ -83,44 +81,78 @@
 							<div class="col-sm-10">
 								<input type="text" class="form-control" id="fname"
 									placeholder="Nome"
-									jsf:value="#{editUserController.entity.name}" name="fname" />
+									jsf:value="#{editProductController.entity.name}"
+									name="fname" />
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-sm-2" for="lname">Email:</label>
+							<label class="control-label col-sm-2" for="lname">Descrição:</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" id="lname"
-									placeholder="Email"
-									jsf:value="#{editUserController.entity.login}" name="lname" />
+							<h:inputTextarea styleClass="form-control" 
+							value="#{editProductController.entity.description}"/>
+								
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-sm-2" for="email">Senha:</label>
+							<label class="control-label col-sm-2" for="fname">Marca:</label>
 							<div class="col-sm-10">
-								<input type="password" class="form-control" id="email"
-									placeholder="Senha"
-									jsf:value="#{editUserController.entity.password}" name="email" />
+								
+								<h:selectOneMenu styleClass="browser-default custom-select"
+									value="#{editProductController.entity.brand}">
+									<f:selectItems value="#{editProductController.listaTipoProduto}"
+										var="tipo" itemLabel="#{tipo.label}" />
+								</h:selectOneMenu>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="control-label col-sm-2" for="comment">Admin:</label>
+							<label class="control-label col-sm-2" for="price">Preço:</label>
 							<div class="col-sm-10">
-								<h:selectOneRadio id="ativo"
-									value="#{editUserController.entity.is_admin}">
-									<f:selectItem itemValue="true" itemLabel="Sim" />
-									<f:selectItem itemValue="false" itemLabel="Não" />
-								</h:selectOneRadio>
+								<input type="text" class="form-control" id="price"
+									placeholder="Preço"
+									jsf:value="#{editProductController.entity.price}"
+									name="price" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="stock">Estoque:</label>
+							<div class="col-sm-10">
+								<input type="number" class="form-control" id="stock"
+									placeholder="Estoque"
+									jsf:value="#{editProductController.entity.stock}"
+									name="stock" min="1" />
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-12" for="date">Data
+								Lançamento:</label>
+							<div class="col-sm-10">
+								<input type="date" class="form-control" id="date"
+									placeholder="Estoque"
+									jsf:value="#{editProductController.entity.release_date}"
+									name="date" >
+									<f:convertDateTime pattern="yyyy-MM-dd" 
+									   type="localDate"/>
+									</input>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="control-label col-sm-2" for="file">Imagem:</label>
+							<div class="col-sm-10">
+								<input type="file" class="form-control" id="file"
+									placeholder="Estoque"
+									jsf:value="#{editProductController.entity.image}"
+									name="file" />
 							</div>
 						</div>
 						<div class="form-group">
 							<div class="col-sm-offset-2 col-sm-10">
 								<button id="alterar" type="submit"
-									jsf:action="#{editUserController.alter}"
+									jsf:action="#{editProductController.update}"
 									class="btn btn-default float-right">Alterar</button>
 							</div>
 						</div>
+					</h:form>
 					</div>
-				</h:form>
 			</div>
 		</div>
 	</div>
