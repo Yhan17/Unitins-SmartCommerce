@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>SmartCommerce</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/resources/index_style.css" />
+	<style>
+		.header {
+			text-align: right;
+		}
+		footer{
+			position: fixed;
+            bottom: 0;
+            left: 0px;
+            right: 0px;
+			
+		}
+</style>
+</h:head>
+<h:body>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">SmartCommerce</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a class="nav-link"
+						href="index_user_loged.xhtml">Home <span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
+					</li>
+					<li class="nav-item"><a class="nav-link" href="#">#{carrinhoController.usarioLogado.name}</a>
+					<li class="nav-item"><h:form>
+							<h:commandButton value="Sair" styleClass="btn btn-danger"
+								action="#{carrinhoController.encerrarSessao}"
+								rendered="#{carrinhoController.usarioLogado != null}"
+								style="color:white" />
+						</h:form></li>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Page Content -->
+	<div class="container" style="margin-top: 100px;">
+
+
+		<div class="row" style="height: 100%">
+
+			<div class="col-lg-12">
+				<h1 style="text-align: center">Carrinho</h1>
+			</div>
+
+			<div class="row" style="width: 100%">
+				<div class="col">
+					<div class="card">
+							<h:form id="formDataTable">
+						<div class="card-body">
+							<h:messages id="messages" errorStyle="color:red"
+								warnStyle="color:orange"
+								infoStyle="color:white;background-color:green;padding: 5px;border-radius: 5px;margin-left: -50px"
+								globalOnly="false" />
+							<h5 class="card-title">Carrinho</h5>
+								<h:dataTable id="dataTable"
+									headerClasses="none,none,none,none,none,none,right"
+									styleClass="table"
+									value="#{carrinhoController.venda.listaItemVenda}" var="obj">
+									<h:column>
+										<f:facet name="header">Nome</f:facet>
+										<h:outputLabel value="#{obj.produto.name}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">Preço</f:facet>
+										<h:outputLabel value="#{obj.produto.price}" />
+
+									</h:column>
+									<h:column headerClass="header">
+										<f:facet name="header">Ação</f:facet>
+										<h:commandButton value="remover"
+											actionListener="#{carrinhoController.remover(obj.produto.id)}"
+											styleClass="btn btn-danger float-right">
+											<f:ajax render="@form" execute="@this" />
+										</h:commandButton>
+									</h:column>
+								</h:dataTable>
+								<h:commandButton value="Finalizar Venda"
+									actionListener="#{carrinhoController.finalizar}"
+									styleClass="btn btn-info float-right" style="margin-bottom:20px">
+									<f:ajax execute="@form" render="@form" />
+								</h:commandButton>
+						</div>
+							</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+
+	<!-- Footer -->
+	<footer class="py-4 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &#169;
+				SmartCommerce 2020</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+</h:body>
+</html>

@@ -199,17 +199,21 @@ public class ProdutoDAO extends DAO<Produto> {
 	public Produto findById(int id) {
 		Produto produto = null;
 		
-Connection conn = getConnection();
+		Connection conn = getConnection();
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT ");
 		sql.append(" 	id, name, description, brand, price, stock, release_date, image, created_at, updated_at  ");
 		sql.append("FROM ");
 		sql.append("	produtos ");
+		sql.append("WHERE ");
+		sql.append("	id = ? ");
+
 		
 		PreparedStatement stat = null;
 		try {
 			stat = conn.prepareStatement(sql.toString());
+			stat.setInt(1, id);
 			
 			ResultSet rs = stat.executeQuery();
 			
@@ -239,5 +243,43 @@ Connection conn = getConnection();
 
 		return produto;
 	}
+	
+	public String buscarImagem(int id) {
+		String imagem = "";
+		
+		Connection conn = getConnection();
+				
+				StringBuffer sql = new StringBuffer();
+				sql.append("SELECT ");
+				sql.append(" 	image  ");
+				sql.append("FROM ");
+				sql.append("	produtos ");
+				sql.append("WHERE ");
+				sql.append("	id = ? ");
+				
+				PreparedStatement stat = null;
+				try {
+					stat = conn.prepareStatement(sql.toString());
+					stat.setInt(1, id);
+					
+					ResultSet rs = stat.executeQuery();
+					
+					
+					while(rs.next()) {
 
+						imagem = rs.getString("image");
+
+
+					}
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+					rollback(conn);
+				} finally {
+					closeStatement(stat);
+					closeConnection(conn);
+				}
+
+				return imagem;
+	}
 }

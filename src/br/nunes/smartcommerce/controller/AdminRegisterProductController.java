@@ -1,12 +1,16 @@
 package br.nunes.smartcommerce.controller;
 
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
+
+import org.apache.catalina.core.ApplicationPart;
 
 import br.nunes.smartcommerce.application.Session;
 import br.nunes.smartcommerce.application.Util;
@@ -23,6 +27,8 @@ public class AdminRegisterProductController extends Controller<Produto> {
 	private static final long serialVersionUID = -7912559731952920320L;
 	
 	private User usuarioLogado;
+	
+	private ApplicationPart imagem;
 
 	public AdminRegisterProductController() {
 		super(new ProdutoDAO());
@@ -51,7 +57,32 @@ public class AdminRegisterProductController extends Controller<Produto> {
 	}
 	
 	public String include() {
-		if (validarDados()) {		
+		if (validarDados()) {	
+			String caminhoImagem = "";
+			if (imagem != null && imagem.getSubmittedFileName() != null) {
+				caminhoImagem = "C:\\Users\\shika\\OneDrive\\Documentos\\Eclipse\\Workspace\\Dev-Server1\\SmartCommerce\\WebContent\\uploads\\" + imagem.getSubmittedFileName();
+				
+
+				try {
+					// cria um espaço de memória que vai armazenar o conteúdo da imagem PORQUE A IMAGEM é UM ARRAY DE BYTES
+					byte[] bytesImagem = new byte[(int) imagem.getSize()];
+					// lê o conteudo da imagem e joga dentro do array de bytes
+					imagem.getInputStream().read(bytesImagem);
+					// cria uma referência para o arquivo que será criado no lado do server
+					File f = new File(caminhoImagem);
+					// cria o objeto que irá manipular o arquivo criado
+					FileOutputStream fos = new FileOutputStream(f);
+					// escreve o conteúdo da imagem (upload) dentro do arquivo no servidor
+					fos.write(bytesImagem);
+
+					fos.close();
+					
+					getEntity().setImage(caminhoImagem);
+
+				} catch (Exception ex) {
+					ex.printStackTrace();
+				}
+			}
 			if (dao.create(getEntity())) {
 				try {
 					limpar();
@@ -121,6 +152,14 @@ public class AdminRegisterProductController extends Controller<Produto> {
 		return entity;
 		
 	}
+	public ApplicationPart getImagem() {
+		return imagem;
+	}
+
+	public void setImagem(ApplicationPart imagem) {
+		this.imagem = imagem;
+	}
+
 	@Override
 	public boolean validarDados() {
 		if (getEntity().getName().isBlank() ) {

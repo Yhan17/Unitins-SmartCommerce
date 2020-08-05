@@ -43,17 +43,18 @@
 					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Cart(0)</a>
+					<li class="nav-item">
+					<h:form>
+					<a class="nav-link" href="carrinho.xhtml">Cart(#{indexUserController.carrinho})</a>
+					</h:form>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="#">#{indexUserController.usarioLogado.name}</a>
 					<li class="nav-item"><h:form>
-							<h:commandButton value="Sair"
-							styleClass="btn btn-danger"
-							action="#{indexUserController.encerrarSessao}"
-							rendered="#{indexUserController.usarioLogado != null}"
-							style="color:white" />
-						</h:form>
-					</li>
+							<h:commandButton value="Sair" styleClass="btn btn-danger"
+								action="#{indexUserController.encerrarSessao}"
+								rendered="#{indexUserController.usarioLogado != null}"
+								style="color:white" />
+						</h:form></li>
 					</li>
 				</ul>
 			</div>
@@ -114,123 +115,33 @@
 				</div>
 
 				<div class="row">
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt="" /></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item um</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet numquam aspernatur!</p>
+						<ui:repeat var="produto"
+							value="#{indexUserController.listaProduto}">
+							<div class="col-lg-4 col-md-6 mb-4">
+					<h:form>
+								<div class="card h-100">
+									<a href="#"><img class="card-img-top"
+										src="/SmartCommerce/ServletImagem?id=#{produto.id}" alt=""
+										style="width: 700; height: 400; max-width: 700; max-height: 400" /></a>
+									<div class="card-body">
+										<h4 class="card-title">
+											<a href="#">#{produto.name}</a>
+										</h4>
+										<h5>#{produto.price}</h5>
+										<p style="text-align: center">
+											<button class="btn btn-primary"
+												jsf:actionListener="#{indexUserController.adicionar(produto.id)}">Adicionar
+												ao Carrinho</button>
+										</p>
+									</div>
+									<div class="card-footer">
+										<small class="text-muted">&#9733; &#9733; &#9733;
+											&#9733; &#9734;</small>
+									</div>
+								</div>
+					</h:form>
 							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt="" /></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item dois</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor
-									sit amet.</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt="" /></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item tres</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet numquam aspernatur!</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt="" /></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item quatro</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet numquam aspernatur!</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt="" /></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item cinco</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor
-									sit amet.</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
-
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="http://placehold.it/700x400" alt="" /></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">Item seis</a>
-								</h4>
-								<h5>$24.99</h5>
-								<p class="card-text">Lorem ipsum dolor sit amet, consectetur
-									adipisicing elit. Amet numquam aspernatur!</p>
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
-							</div>
-						</div>
-					</div>
-
+						</ui:repeat>
 				</div>
 				<!-- /.row -->
 

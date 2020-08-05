@@ -140,8 +140,11 @@
 							<div class="col-sm-10">
 								<input type="file" class="form-control" id="file"
 									placeholder="Estoque"
-									jsf:value="#{registerProductController.entity.image}"
+									jsf:value="#{registerProductController.imagem}"
 									name="file" />
+							</div>
+							<div class="col-sm-10">
+								<img id="imagem_produto" style="width:300px;height:300px;max-width:300px;max-height:300px;margin-top:10px" src="../resources/img/No_Image.png" alt="Imagem Produto" />
 							</div>
 						</div>
 						<div class="form-group">
@@ -156,11 +159,10 @@
 			</div>
 		</div>
 	</div>
-
+	<script src="../resources/js/reader.js"></script>
 	<script>
-		$('#alterar').on('click', function() {
-			const teste = document.li.style.color;
-
+		$("#file").change(function() {
+		  readURL(this);
 		});
 	</script>
 </h:body>
