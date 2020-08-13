@@ -23,16 +23,16 @@
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="/resources/index_style.css" />
 	<style>
-		.header {
-			text-align: right;
-		}
-		footer{
-			position: fixed;
-            bottom: 0;
-            left: 0px;
-            right: 0px;
-			
-		}
+.header {
+	text-align: right;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	left: 0px;
+	right: 0px;
+}
 </style>
 </h:head>
 <h:body>
@@ -54,7 +54,8 @@
 					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">#{carrinhoController.usarioLogado.name}</a>
+					<li class="nav-item"><a class="nav-link"
+						href="user_profile.xhtml">#{carrinhoController.usarioLogado.name}</a>
 					<li class="nav-item"><h:form>
 							<h:commandButton value="Sair" styleClass="btn btn-danger"
 								action="#{carrinhoController.encerrarSessao}"
@@ -62,6 +63,10 @@
 								style="color:white" />
 						</h:form></li>
 					</li>
+					<li><h:form><h:commandButton value="Return" styleClass="btn btn-info"
+							action="#{carrinhoController.navegar}"
+							rendered="#{carrinhoController.usarioLogado.is_admin == true}"
+							style="color:white" /></h:form></li>
 				</ul>
 			</div>
 		</div>
@@ -80,13 +85,14 @@
 			<div class="row" style="width: 100%">
 				<div class="col">
 					<div class="card">
-							<h:form id="formDataTable">
-						<div class="card-body">
-							<h:messages id="messages" errorStyle="color:red"
-								warnStyle="color:orange"
-								infoStyle="color:white;background-color:green;padding: 5px;border-radius: 5px;margin-left: -50px"
-								globalOnly="false" />
-							<h5 class="card-title">Carrinho</h5>
+						<h:form id="formDataTable">
+							<div class="card-body">
+								<h:messages id="messages" errorClass="alert alert-danger"
+									infoClass="alert alert-success" warnClass="alert alert-warning"
+									errorStyle="list-style-type: none"
+									warnStyle="list-style-type: none"
+									infoStyle="list-style-type: none" globalOnly="false" />
+								<h5 class="card-title">Carrinho</h5>
 								<h:dataTable id="dataTable"
 									headerClasses="none,none,none,none,none,none,right"
 									styleClass="table"
@@ -110,12 +116,13 @@
 									</h:column>
 								</h:dataTable>
 								<h:commandButton value="Finalizar Venda"
-									actionListener="#{carrinhoController.finalizar}"
-									styleClass="btn btn-info float-right" style="margin-bottom:20px">
+									action="#{carrinhoController.finalizar}"
+									styleClass="btn btn-info float-right"
+									style="margin-bottom:20px">
 									<f:ajax execute="@form" render="@form" />
 								</h:commandButton>
-						</div>
-							</h:form>
+							</div>
+						</h:form>
 					</div>
 				</div>
 			</div>

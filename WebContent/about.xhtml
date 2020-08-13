@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>SmartCommerce</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="/resources/index_style.css" />
+	<style>
+.header {
+	text-align: right;
+}
+</style>
+</h:head>
+<h:body>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">SmartCommerce</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a class="nav-link"
+						href="index_user_loged.xhtml">Home <span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
+					</li>
+					<li class="nav-item"><h:form>
+							<a class="nav-link" href="carrinho.xhtml">Cart(#{indexUserController.carrinho})</a>
+						</h:form></li>
+					<li class="nav-item"><a class="nav-link" href="user_profile.xhtml">#{indexUserController.usarioLogado.name}</a>
+					<li class="nav-item"><h:form>
+							<h:commandButton value="Sair" styleClass="btn btn-danger"
+								action="#{indexUserController.encerrarSessao}"
+								rendered="#{indexUserController.usarioLogado != null}"
+								style="color:white" />
+						</h:form></li>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Page Content -->
+	<div class="container" style="margin-top: 100px;">
+
+
+		<div class="row" style="height: 100%">
+
+			<div class="col-lg-12">
+				<h1 style="text-align: center">Sobre Nós</h1>
+			</div>
+
+			<div class="row" style="width: 100%">
+				<div class="col">
+					<div class="card">
+						<p style="text-align:justify;padding: 15px">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+							Praesent nec finibus massa. Sed consectetur a risus eget euismod.
+							Suspendisse non varius libero. Fusce id risus nec neque malesuada
+							tempor a ut neque. Praesent tincidunt, odio sit amet imperdiet
+							venenatis, purus magna mattis sapien, eget molestie nulla ipsum
+							vel nibh. In pharetra urna ut erat ornare condimentum. Nunc
+							ligula massa, euismod id nibh fermentum, eleifend ultricies enim.
+							Fusce at mauris justo. Ut luctus viverra sapien eu pharetra. Duis
+							et euismod massa. Cras nec placerat arcu, nec dictum mauris.
+							Aliquam erat volutpat. Donec ultrices, dolor dictum faucibus
+							fermentum, sapien odio consectetur urna, nec tempus magna justo
+							vel metus. Sed ut luctus libero, sed feugiat nunc. Ut non mauris
+							nec augue mollis eleifend sed id sem. Proin id malesuada lectus.
+							Aliquam sed mollis ex, in congue ligula. Duis pellentesque
+							interdum vestibulum. In vel ex odio. In ut enim id sem porta
+							elementum tempor porta sapien. Donec aliquet vel justo eu
+							lacinia. Proin aliquet lacus in lacus dapibus, quis gravida massa
+							posuere. Suspendisse aliquam, mi quis egestas feugiat, augue
+							libero auctor mi, ut efficitur eros eros eu ligula. Sed nec orci
+							et nulla euismod condimentum sit amet id ligula. Donec maximus
+							ante risus, a pellentesque tellus elementum eu. Nullam et tortor
+							id justo consequat rhoncus nec vel dui. Curabitur lectus metus,
+							pretium ac convallis ut, scelerisque a ante. Proin turpis sapien,
+							tristique sit amet tellus sed, ornare mollis neque. Quisque
+							vestibulum ex a ullamcorper euismod. Aliquam in mi at tortor
+							fermentum hendrerit et vitae massa. Fusce sit amet quam
+							malesuada, vehicula odio at, pulvinar sapien. Praesent tristique,
+							arcu et aliquam molestie, nisl diam dapibus dui, ac laoreet odio
+							odio et leo. Integer convallis dui elementum sapien interdum
+							blandit. Ut mollis malesuada sodales. Donec pulvinar efficitur mi
+							ut pulvinar. Suspendisse a enim suscipit, facilisis urna eu,
+							porta felis. Duis tincidunt purus eget massa sagittis, eget
+							aliquet erat ultrices. Curabitur vehicula mi lectus, eu
+							vestibulum orci ornare in. Nulla egestas mauris sit amet velit
+							condimentum, eu ultricies quam pretium. Fusce consequat ultricies
+							mi sed pretium. Nullam tempus lacus quis arcu malesuada posuere.
+							Proin dignissim vitae quam quis vestibulum. Sed nibh tellus,
+							viverra ac dolor sed, tincidunt interdum mi. Vestibulum dignissim
+							vehicula convallis. Integer tempus, neque et cursus blandit, nibh
+							lorem pretium ipsum, non porta tortor tellus in est. Aenean nulla
+							urna, varius eget nibh ac, pellentesque dapibus nulla. Fusce nec
+							nisi eu mi pulvinar dictum eu eu velit. Nullam a ante tempus,
+							convallis dui sed, laoreet arcu. Proin condimentum aliquet lorem
+							vitae euismod. Pellentesque feugiat sem ut felis tempor, vitae
+							porttitor risus mollis. Nam tortor quam, pellentesque at ante in,
+							varius ornare ligula. Donec at imperdiet nulla. Pellentesque
+							vulputate vestibulum dolor, quis aliquam orci tempus pulvinar.
+							Phasellus ut commodo neque. Donec ut nulla vel nunc molestie
+							blandit. Etiam volutpat hendrerit pretium. Nunc eu turpis ut est
+							pulvinar mollis eu ac arcu. Sed interdum orci ut urna tristique
+							varius. Nam laoreet fermentum tortor, et facilisis erat venenatis
+							nec. Nunc facilisis tellus a interdum efficitur. Maecenas eu nibh
+							sagittis, sagittis enim quis, rhoncus dolor. Nulla dignissim ante
+							a ante tincidunt tincidunt. Nulla ultricies, felis a molestie
+							venenatis, augue leo tristique neque, sed varius felis leo vel
+							enim. Ut scelerisque dui euismod, cursus neque eget, eleifend
+							dui. Mauris eu elementum ligula. Donec suscipit, magna vitae
+							molestie luctus, enim ex egestas tellus, eget laoreet arcu arcu
+							sed risus. Quisque vel purus aliquam, elementum nisl nec,
+							suscipit orci. Vivamus vitae justo varius, aliquet enim sodales,
+							placerat sapien. Proin non rutrum urna, ac tincidunt quam.
+							Praesent vitae diam eget tortor varius maximus non eget arcu.
+							Praesent tristique lorem consectetur risus interdum, eu lacinia
+							eros aliquet. Nulla euismod purus eu erat tincidunt euismod.
+							Etiam tempus felis augue, volutpat pulvinar lectus congue id. Sed
+							hendrerit augue vel ligula molestie fermentum. In hac habitasse
+							platea dictumst. Duis dolor augue, tempus id maximus eu, feugiat
+							eget felis. Nunc aliquet nisi at leo volutpat accumsan. In id
+							facilisis urna. In porta ultricies nibh, in venenatis nulla
+							aliquam a. Nam vitae diam et libero dignissim tempor. Aliquam
+							quis pharetra urna, egestas tincidunt lorem. Suspendisse lacinia
+							placerat condimentum. Fusce tortor lorem, semper laoreet eleifend
+							sed, pulvinar ac felis. Quisque eleifend at odio non ullamcorper.
+							Quisque in purus aliquam, venenatis metus ut, molestie lorem.
+							Maecenas purus dui, mattis rhoncus ex ut, cursus convallis nulla.
+							In non consectetur massa. Fusce et nisi aliquam, rhoncus nisl
+							eget, egestas nunc. Curabitur dignissim lorem a justo cursus
+							egestas. Sed tempus risus nulla, in rhoncus magna venenatis sed.
+							Aenean vel lorem leo. Donec viverra lectus a dolor tempor tempus.
+							Mauris eu diam porttitor, scelerisque leo at, rhoncus tellus.
+							Nulla bibendum nisi a leo auctor, efficitur congue tellus cursus.
+							Quisque eget nisl vitae risus laoreet fringilla id eget metus.
+							Pellentesque venenatis dolor rhoncus nunc porttitor, sollicitudin
+							aliquam arcu lacinia. Morbi at lobortis lectus. Vestibulum ante
+							ipsum primis in faucibus orci luctus et ultrices posuere cubilia
+							curae; Cras auctor lacinia odio in pharetra. Duis fermentum quam
+							iaculis finibus aliquet. Integer mattis interdum mattis. Ut ac
+							risus et mi ullamcorper facilisis. Nulla lobortis dapibus
+							tincidunt. Fusce facilisis ante purus, ac auctor nisi tempor ut.
+
+							Proin euismod eleifend ipsum, in sagittis nibh bibendum a.
+							Maecenas commodo dolor nec ultrices ultrices. Suspendisse a
+							imperdiet lectus, nec gravida nisl. Ut sed viverra elit, a
+							consectetur nunc. Nullam posuere, eros sed lobortis eleifend,
+							nisl ex consequat odio, ut ultricies mi nisl eu ante. Donec a
+							sagittis enim. In faucibus facilisis euismod. Mauris ut nunc
+							hendrerit, consequat massa vel, ornare ex. Cras in mollis ante,
+							id rhoncus velit.</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+
+	<!-- Footer -->
+	<footer class="py-4 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &#169;
+				SmartCommerce 2020</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+</h:body>
+</html>

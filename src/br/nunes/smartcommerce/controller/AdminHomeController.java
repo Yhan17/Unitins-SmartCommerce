@@ -33,6 +33,7 @@ public class AdminHomeController extends Controller<User> {
 		}
 
 		return usuario;
+		
 	}
 
 	@Override

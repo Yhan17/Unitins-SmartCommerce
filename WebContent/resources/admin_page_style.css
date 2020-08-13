@@ -70,3 +70,8 @@ body {
 .header {
 	text-align: right;
 }
+.cell {
+	max-width: 400px; /* tweak me please */
+
+}
+

@@ -23,7 +23,11 @@ public class Venda extends Entity<Venda> {
 	}
 
 	public Float getTotalVenda() {
-		return totalVenda;
+		Float resultado = 0.0f;
+		for(ItemVenda item : getListaItemVenda()) {
+			resultado+= item.getValor();
+		}
+		return resultado;
 	}
 
 	public void setData(LocalDate data) {
@@ -41,6 +45,7 @@ public class Venda extends Entity<Venda> {
 	public void setTotalVenda(Float totalVenda) {
 		this.totalVenda = totalVenda;
 	}
+
 	
 	
 }

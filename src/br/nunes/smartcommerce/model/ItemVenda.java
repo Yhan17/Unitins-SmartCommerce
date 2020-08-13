@@ -29,4 +29,5 @@ public class ItemVenda extends Entity<ItemVenda> {
 		this.venda = venda;
 	}
 
+
 }

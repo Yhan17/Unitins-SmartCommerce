@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.List;
 
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.inject.Named;
 
 import br.nunes.smartcommerce.dao.ProdutoDAO;
@@ -28,6 +30,12 @@ public class IndexController implements Serializable{
 		}
 
 		return listaProduto;
+	}
+	
+	public String productRedirect(Produto produto) {
+		Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+		flash.put("productRequired", produto);
+		return "product_page.xhtml?faces-redirect=true";
 	}
 	
 }

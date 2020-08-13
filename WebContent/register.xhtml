@@ -23,8 +23,14 @@
 	</div>
 
 	<div class="tile-body">
-		<h:messages id="messages" errorStyle="color:red"
-			warnStyle="color:orange" infoStyle="color:green" globalOnly="false" />
+<h:messages id="messages" 
+ errorClass="alert alert-danger"
+ infoClass="alert alert-success"
+ warnClass="alert alert-warning"
+errorStyle="list-style-type: none"
+warnStyle="list-style-type: none"
+infoStyle="list-style-type: none"
+globalOnly="false" />
 		<h:form>
 			<label class="form-input"> <i class="material-icons">person</i>
 				<input type="text" autofocus="true"
@@ -37,8 +43,9 @@
 				class="label">Email</span> <span class="underline"></span>
 			</label>
 			<label class="form-input"> <i class="material-icons">lock</i>
-				<input type="password" jsf:value="#{registerController.entity.password}"
-				required="true" /> <span class="label">Password</span>
+				<input type="password"
+				jsf:value="#{registerController.entity.password}" required="true" />
+				<span class="label">Password</span>
 				<div class="underline"></div>
 			</label>
 			<h:commandButton styleClass="btn btn-lg btn-primary float-right"
@@ -52,7 +59,7 @@
 				<f:ajax execute="@this" render="@form messages" />
 			</h:commandButton>
 
-			
+
 
 		</h:form>
 	</div>

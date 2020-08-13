@@ -10,6 +10,7 @@ public class User extends Entity<User> {
 	private Boolean is_admin;
 	private LocalDate created_at;
 	private LocalDate updated_at;
+	private AtributoUsuario atributes = new AtributoUsuario(); 
 
 	public String getName() {
 		return name;
@@ -43,8 +44,6 @@ public class User extends Entity<User> {
 		this.is_admin = is_admin;
 	}
 
-
-
 	public LocalDate getCreated_at() {
 		return created_at;
 	}
@@ -59,6 +58,14 @@ public class User extends Entity<User> {
 
 	public void setUpdated_at(LocalDate updated_at) {
 		this.updated_at = updated_at;
+	}
+
+	public AtributoUsuario getAtributes() {
+		return atributes;
+	}
+
+	public void setAtributes(AtributoUsuario atributes) {
+		this.atributes = atributes;
 	}
 
 }

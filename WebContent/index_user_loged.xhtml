@@ -22,10 +22,17 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="/resources/index_style.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.js"></script>
 
 </h:head>
 <h:body>
-
+	<div class="animsition-overlay" data-animsition-overlay="true">
+		<a href="./page1" class="animsition-link">animsition link 1</a> <a
+			href="./page2" class="animsition-link">animsition link 2</a>
+	</div>
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
@@ -43,12 +50,11 @@
 					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
 					</li>
-					<li class="nav-item">
-					<h:form>
-					<a class="nav-link" href="carrinho.xhtml">Cart(#{indexUserController.carrinho})</a>
-					</h:form>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="#">#{indexUserController.usarioLogado.name}</a>
+					<li class="nav-item"><h:form>
+							<a class="nav-link" href="carrinho.xhtml">Cart(#{indexUserController.carrinho})</a>
+						</h:form></li>
+					<li class="nav-item"><a class="nav-link"
+						href="user_profile.xhtml">#{indexUserController.usarioLogado.name}</a>
 					<li class="nav-item"><h:form>
 							<h:commandButton value="Sair" styleClass="btn btn-danger"
 								action="#{indexUserController.encerrarSessao}"
@@ -56,6 +62,12 @@
 								style="color:white" />
 						</h:form></li>
 					</li>
+					<li><h:form>
+							<h:commandButton value="Return" styleClass="btn btn-info"
+								action="#{carrinhoController.navegar}"
+								rendered="#{carrinhoController.usarioLogado.is_admin == true}"
+								style="color:white;border-radius:0;width:100%;height:100%;" />
+						</h:form></li>
 				</ul>
 			</div>
 		</div>
@@ -80,7 +92,11 @@
 			<!-- /.col-lg-3 -->
 
 			<div class="col-lg-9">
-
+				<h:messages id="messages" errorClass="alert alert-danger"
+					infoClass="alert alert-success" warnClass="alert alert-warning"
+					errorStyle="list-style-type: none"
+					warnStyle="list-style-type: none" infoStyle="list-style-type: none"
+					globalOnly="false" />
 				<div id="carouselExampleIndicators" class="carousel slide my-4"
 					data-ride="carousel">
 					<ol class="carousel-indicators">
@@ -115,17 +131,27 @@
 				</div>
 
 				<div class="row">
-						<ui:repeat var="produto"
-							value="#{indexUserController.listaProduto}">
-							<div class="col-lg-4 col-md-6 mb-4">
-					<h:form>
+					<ui:repeat var="produto"
+						value="#{indexUserController.listaProduto}">
+						<div class="col-lg-4 col-md-6 mb-4">
+							<h:form>
 								<div class="card h-100">
-									<a href="#"><img class="card-img-top"
-										src="/SmartCommerce/ServletImagem?id=#{produto.id}" alt=""
-										style="width: 700; height: 400; max-width: 700; max-height: 400" /></a>
+									<h:form>
+										<h:commandLink
+											action="#{indexUserController.productRedirect(produto)}">
+											<img class="card-img-top"
+												src="/SmartCommerce/ServletImagem?id=#{produto.id}" alt=""
+												style="width: 700; height: 400; max-width: 700; max-height: 400" />
+										</h:commandLink>
+									</h:form>
 									<div class="card-body">
 										<h4 class="card-title">
-											<a href="#">#{produto.name}</a>
+											<h:form>
+
+												<h:commandLink
+													action="#{indexUserController.productRedirect(produto)}"
+													value="#{produto.name}"></h:commandLink>
+											</h:form>
 										</h4>
 										<h5>#{produto.price}</h5>
 										<p style="text-align: center">
@@ -136,12 +162,23 @@
 									</div>
 									<div class="card-footer">
 										<small class="text-muted">&#9733; &#9733; &#9733;
-											&#9733; &#9734;</small>
+											&#9733; &#9733; &#9733; </small>
 									</div>
 								</div>
-					</h:form>
-							</div>
-						</ui:repeat>
+							</h:form>
+						</div>
+					</ui:repeat>
+
+					<nav aria-label="Page navigation example"
+						style="margin-left: auto; margin-right: 0;">
+						<ul class="pagination justify-content-end">
+
+							<li class="page-item"><a class="page-link" href="#">1</a></li>
+							<li class="page-item"><a class="page-link" href="#">2</a></li>
+							<li class="page-item"><a class="page-link" href="#">3</a></li>
+
+						</ul>
+					</nav>
 				</div>
 				<!-- /.row -->
 
@@ -162,6 +199,38 @@
 		</div>
 		<!-- /.container -->
 	</footer>
+	<script>
+		$(document).ready(
+				function() {
+					$(".animsition-overlay").animsition(
+							{
+								inClass : 'overlay-slide-in-top',
+								outClass : 'overlay-slide-out-top',
+								inDuration : 1500,
+								outDuration : 800,
+								linkElement : '.animsition-link',
+								// e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
+								loading : true,
+								loadingParentElement : 'body', //animsition wrapper element
+								loadingClass : 'animsition-loading',
+								loadingInner : '', // e.g '<img src="loading.svg" />'
+								timeout : false,
+								timeoutCountdown : 5000,
+								onLoadEvent : true,
+								browser : [ 'animation-duration',
+										'-webkit-animation-duration' ],
+								// "browser" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+								// The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+								overlay : true,
+								overlayClass : 'animsition-overlay-slide',
+								overlayParentElement : 'body',
+								transition : function(url) {
+									window.location.href = url;
+								}
+							});
+
+				});
+	</script>
 
 </h:body>
 </html>

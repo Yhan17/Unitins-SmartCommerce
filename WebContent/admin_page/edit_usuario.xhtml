@@ -41,7 +41,7 @@
 
 			<div class="collapse navbar-collapse" id="navbarText">
 				<ul class="navbar-nav animate side-nav">
-					<li class="nav-item"><a class="nav-link" href="#">Home <span
+					<li class="nav-item"><a href="home.xhtml"> <span
 							class="sr-only">(current)</span>
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Side
@@ -75,9 +75,14 @@
 			<div class="col-md-9">
 				<h:form>
 					<div class="contact-form">
-						<h:messages id="mensagem" errorStyle="color:red"
-							warnStyle="color:orange" infoStyle="color:green"
-							globalOnly="false" />
+<h:messages id="messages" 
+ errorClass="alert alert-danger"
+ infoClass="alert alert-success"
+ warnClass="alert alert-warning"
+errorStyle="list-style-type: none"
+warnStyle="list-style-type: none"
+infoStyle="list-style-type: none"
+globalOnly="false" />
 						<div class="form-group">
 							<label class="control-label col-sm-2" for="fname">Nome:</label>
 							<div class="col-sm-10">

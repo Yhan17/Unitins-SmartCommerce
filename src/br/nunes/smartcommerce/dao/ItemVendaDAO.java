@@ -56,20 +56,20 @@ public class ItemVendaDAO  extends DAO<ItemVenda> {
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT ");
-		sql.append("  v.id, ");
-		sql.append("  v.valor, ");
-		sql.append("  v.idproduto, ");
-		sql.append("  l.description, ");
-		sql.append("  l.brand, ");
-		sql.append("  l.price, ");
-		sql.append("  l.stock ");
-		sql.append("  l.release_date ");
+		sql.append("  itemvenda.id, ");
+		sql.append("  itemvenda.valor, ");
+		sql.append("  itemvenda.idproduto, ");
+		sql.append("  produtos.name, ");
+		sql.append("  produtos.description, ");
+		sql.append("  produtos.price, ");
+		sql.append("  produtos.stock, ");
+		sql.append("  produtos.release_date ");
 		sql.append("FROM ");
-		sql.append("  public.itemvenda v, ");
-		sql.append("  public.livro l ");
+		sql.append("  itemvenda , ");
+		sql.append("  produtos  ");
 		sql.append("WHERE ");
-		sql.append("  v.idproduto = l.id AND ");
-		sql.append("  v.idvenda = ? ");
+		sql.append("  itemvenda.idproduto = produtos.id AND ");
+		sql.append("  itemvenda.idvenda = ? ");
 		
 		PreparedStatement stat = null;
 		try {
@@ -85,8 +85,8 @@ public class ItemVendaDAO  extends DAO<ItemVenda> {
 				
 				Produto produto = new Produto();
 				produto.setId(rs.getInt("id"));
+				produto.setName(rs.getString("name"));
 				produto.setDescription(rs.getString("description"));
-				produto.setBrand(Brand.valueOf(rs.getString("brand")));
 				produto.setPrice(rs.getFloat("price"));
 				produto.setStock(rs.getInt("stock"));
 				

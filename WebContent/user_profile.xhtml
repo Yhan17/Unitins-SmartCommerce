@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:jsf="http://xmlns.jcp.org/jsf"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+	<title>SmartCommerce</title>
+
+	<meta charset="utf-8" />
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+	<meta name="description" content="" />
+	<meta name="author" content="" />
+
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.min.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="resources/profile.css" />
+	<link
+		href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css"
+		rel="stylesheet" />
+	<style>
+.header {
+	text-align: right;
+}
+</style>
+</h:head>
+<h:body>
+
+	<!-- Navigation -->
+	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+		<div class="container">
+			<a class="navbar-brand" href="#">SmartCommerce</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarResponsive" aria-controls="navbarResponsive"
+				aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarResponsive">
+				<ul class="navbar-nav ml-auto">
+					<li class="nav-item active"><a class="nav-link"
+						href="index_user_loged.xhtml">Home <span class="sr-only">(current)</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
+					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
+					</li>
+					<li class="nav-item"><h:form>
+							<a class="nav-link" href="carrinho.xhtml">Cart(#{indexUserController.carrinho})</a>
+						</h:form></li>
+					<li class="nav-item"><a class="nav-link" href="#">#{carrinhoController.usarioLogado.name}</a>
+					<li class="nav-item"><h:form>
+							<h:commandButton value="Sair" styleClass="btn btn-danger"
+								action="#{carrinhoController.encerrarSessao}"
+								rendered="#{carrinhoController.usarioLogado != null}"
+								style="color:white;border-radius:0;width:100%;height:100%;margin-top:5px" />
+						</h:form></li>
+					</li>
+					<li><h:form><h:commandButton value="Return" styleClass="btn btn-info"
+							action="#{carrinhoController.navegar}"
+							rendered="#{carrinhoController.usarioLogado.is_admin == true}"
+							style="color:white;border-radius:0;width:100%;height:81%;margin-top:5px" /></h:form></li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<!-- Page Content -->
+	<div class="container" style="margin-top: 100px;">
+
+
+		<div class="row" style="height: 100%">
+
+			<div class="col-lg-12">
+				<h1 style="text-align: center">Perfil</h1>
+			</div>
+			<div class="row" style="width: 100%;">
+				<div class="col">
+					<div class="card">
+						<div class="card-body" style="height: 400px">
+							<h5 class="card-title">Informações</h5>
+
+							<div class="row justify-content-center">
+								<div class="col-lg-3 col-sm-6 ">
+
+									<div class="card hovercard ">
+										<div class="cardheader "></div>
+										<div class="avatar">
+											<img alt=""
+												src="https://assets.change.org/photos/6/kj/gy/XbKJGyqMPeuPghP-128x128-noPad.jpg?1553481309" />
+										</div>
+										<div class="info">
+											<div class="title">
+												<a target="_blank" href="https://scripteden.com/">#{carrinhoController.usarioLogado.name}</a>
+											</div>
+											<div class="desc">Um honrável usuário do site</div>
+											<div class="desc">Comprador Ativo</div>
+											<div class="desc">Grandioso Homem</div>
+										</div>
+										<div class="bottom">
+											<a class="btn btn-primary btn-twitter btn-sm"
+												href="https://twitter.com/webmaniac"> <i
+												class="fa fa-twitter"></i>
+											</a> <a class="btn btn-danger btn-sm" rel="publisher"
+												href="https://plus.google.com/+ahmshahnuralam"> <i
+												class="fa fa-google-plus"></i>
+											</a> <a class="btn btn-primary btn-sm" rel="publisher"
+												href="https://plus.google.com/shahnuralam"> <i
+												class="fa fa-facebook"></i>
+											</a> <a class="btn btn-warning btn-sm" rel="publisher"
+												href="https://plus.google.com/shahnuralam"> <i
+												class="fa fa-behance"></i>
+											</a>
+										</div>
+									</div>
+
+								</div>
+
+							</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row" style="width: 100%">
+				<div class="col">
+					<div class="card">
+						<h:form id="formDataTable">
+							<div class="card-body">
+								<h:messages id="messages" errorClass="alert alert-danger"
+									infoClass="alert alert-success" warnClass="alert alert-warning"
+									errorStyle="list-style-type: none"
+									warnStyle="list-style-type: none"
+									infoStyle="list-style-type: none" globalOnly="false" />
+								<h5 class="card-title">Histórico de Vendas</h5>
+								<h:dataTable id="dataTable"
+									headerClasses="none,none,none,none,none,none,right"
+									styleClass="table"
+									value="#{historicoVendaController.listaVenda}" var="obj">
+									<h:column>
+										<f:facet name="header">Data</f:facet>
+										<h:outputLabel value="#{obj.data}">
+											<f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
+										</h:outputLabel>
+									</h:column>
+									<h:column>
+										<f:facet name="header">Cliente</f:facet>
+										<h:outputLabel value="#{obj.usuario.name}" />
+									</h:column>
+									<h:column>
+										<f:facet name="header">Total da Venda</f:facet>
+										<h:outputLabel value="#{obj.totalVenda}">
+											<f:convertNumber locale="pt_BR" currencySymbol="R$"
+												type="currency" />
+										</h:outputLabel>
+									</h:column>
+									<h:column headerClass="header">
+										<f:facet name="header">Ação</f:facet>
+										<h:commandButton value="Detalhes ..."
+											styleClass="btn btn-primary float-right"
+											style="border-radius:0;width:50%;height:100%"
+											action="#{historicoVendaController.detalhes(obj)}">
+											<f:ajax execute="@this" render="@none" />
+										</h:commandButton>
+									</h:column>
+								</h:dataTable>
+							</div>
+						</h:form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- /.row -->
+
+	</div>
+	<!-- /.container -->
+
+	<!-- Footer -->
+	<footer class="py-4 bg-dark">
+		<div class="container">
+			<p class="m-0 text-center text-white">Copyright &#169;
+				SmartCommerce 2020</p>
+		</div>
+		<!-- /.container -->
+	</footer>
+
+</h:body>
+</html>

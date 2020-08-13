@@ -94,4 +94,5 @@ public class Produto extends Entity<Produto> {
 		this.updated_at = updated_at;
 	}
 
+
 }

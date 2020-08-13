@@ -19,6 +19,8 @@
 		href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.maskedinput/1.4.1/jquery.maskedinput.js"></script>
 
 </h:head>
 <h:body>
@@ -73,9 +75,14 @@
 			<div class="col-md-9">
 					<div class="contact-form">
 				<h:form enctype="multipart/form-data">
-						<h:messages id="mensagem" errorStyle="color:red"
-							warnStyle="color:orange" infoStyle="color:green"
-							globalOnly="false" />
+<h:messages id="messages" 
+ errorClass="alert alert-danger"
+ infoClass="alert alert-success"
+ warnClass="alert alert-warning"
+errorStyle="list-style-type: none"
+warnStyle="list-style-type: none"
+infoStyle="list-style-type: none"
+globalOnly="false" />
 						<div class="form-group">
 							<label class="control-label col-sm-2" for="fname">Nome:</label>
 							<div class="col-sm-10">
@@ -88,8 +95,9 @@
 						<div class="form-group">
 							<label class="control-label col-sm-2" for="lname">Descrição:</label>
 							<div class="col-sm-10">
-							<h:inputTextarea styleClass="form-control" 
-							value="#{registerProductController.entity.description}"/>
+							<h:inputTextarea styleClass="form-control textarea" 
+							value="#{registerProductController.entity.description}">									
+							</h:inputTextarea>
 								
 							</div>
 						</div>
@@ -161,6 +169,10 @@
 	</div>
 	<script src="../resources/js/reader.js"></script>
 	<script>
+		$(document).ready(function() {
+			$('.textarea').attr('maxlength', '200');
+			$('#price').mask('9999.99');
+		});
 		$("#file").change(function() {
 		  readURL(this);
 		});

@@ -41,7 +41,6 @@ public class VendaDAO extends DAO<Venda> {
 			venda.setId(rs.getInt("id"));
 			// inserindo os itens de venda
 			
-			ItemVendaDAO dao = new ItemVendaDAO();
 			for (ItemVenda itemVenda : venda.getListaItemVenda()) {
 				// informando quem eh o pai da crianca
 				itemVenda.setVenda(venda);
@@ -117,19 +116,19 @@ public class VendaDAO extends DAO<Venda> {
 		
 		StringBuffer sql = new StringBuffer();
 		sql.append("SELECT ");
-		sql.append("  v.id, ");
-		sql.append("  v.data, ");
-		sql.append("  u.id as idusuario, ");
-		sql.append("  u.name, ");
-		sql.append("  u.email,  ");
-		sql.append("  u.password, ");
-		sql.append("  u.is_admin, ");			
+		sql.append("  venda.id, ");
+		sql.append("  venda.data, ");
+		sql.append("  users.id as idusuario, ");
+		sql.append("  users.name, ");
+		sql.append("  users.email,  ");
+		sql.append("  users.password, ");
+		sql.append("  users.is_admin ");			
 		sql.append("FROM ");
-		sql.append("  public.venda v, ");
-		sql.append("  public.user u ");
+		sql.append("  venda, ");
+		sql.append("  users  ");
 		sql.append("WHERE ");
-		sql.append("  v.idusuario = u.id AND ");
-		sql.append("  u.id = ? ");
+		sql.append("  venda.idusuario = users.id AND ");
+		sql.append("  users.id = ? ");
 		
 		PreparedStatement stat = null;
 		try {
@@ -146,7 +145,7 @@ public class VendaDAO extends DAO<Venda> {
 				venda.setUsuario(new User());
 				venda.getUsuario().setId(rs.getInt("idusuario"));
 				venda.getUsuario().setName(rs.getString("name"));
-				venda.getUsuario().setLogin(rs.getString("login"));
+				venda.getUsuario().setLogin(rs.getString("email"));
 				venda.getUsuario().setPassword(rs.getString("password"));
 				venda.getUsuario().setIs_admin((rs.getBoolean("is_admin")));
 				// e os itens de venda?!!?
@@ -181,7 +180,7 @@ public class VendaDAO extends DAO<Venda> {
 		sql.append("  u.is_admin, ");				
 		sql.append("FROM ");
 		sql.append("  public.venda v, ");
-		sql.append("  public.user u ");
+		sql.append("  public.users u ");
 		sql.append("WHERE ");
 		sql.append("  v.idusuario = u.id ");
 		

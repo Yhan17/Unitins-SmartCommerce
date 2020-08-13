@@ -22,10 +22,17 @@
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="/resources/index_style.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.js"></script>
 
 </h:head>
 <h:body>
-
+	<div class="animsition">
+		<a href="./page1" class="animsition-link">animsition link 1</a> <a
+			href="./page2" class="animsition-link">animsition link 2</a>
+	</div>
 	<!-- Navigation -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 		<div class="container">
@@ -43,7 +50,7 @@
 					<li class="nav-item"><a class="nav-link" href="#">About</a></li>
 					<li class="nav-item"><a class="nav-link" href="#">Contact</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="#">Cart(0)</a>
+					<li class="nav-item"><a class="nav-link" href="carrinho.xhtml">Cart(0)</a>
 					</li>
 					<li class="nav-item"><a class="nav-link" href="login.xhtml">Login</a>
 					</li>
@@ -106,28 +113,45 @@
 				</div>
 
 				<div class="row">
-					
-				<ui:repeat var="produto"  value="#{indexController.listaProduto}">
-					<div class="col-lg-4 col-md-6 mb-4">
-						<div class="card h-100">
-							<a href="#"><img class="card-img-top"
-								src="/SmartCommerce/ServletImagem?id=#{produto.id}" alt="" 
-								style="width: 700; height: 400;max-width: 700;max-height: 400"/></a>
-							<div class="card-body">
-								<h4 class="card-title">
-									<a href="#">#{produto.name}</a>
-								</h4>
-								<h5>#{produto.price}</h5>
-								
-							</div>
-							<div class="card-footer">
-								<small class="text-muted">&#9733; &#9733; &#9733;
-									&#9733; &#9734;</small>
+
+					<ui:repeat var="produto" value="#{indexController.listaProduto}">
+						<div class="col-lg-4 col-md-6 mb-4">
+							<div class="card h-100">
+								<h:form>
+									<h:commandLink
+										action="#{indexController.productRedirect(produto)}">
+										<img class="card-img-top"
+											src="/SmartCommerce/ServletImagem?id=#{produto.id}" alt=""
+											style="width: 700; height: 400; max-width: 700; max-height: 400" />
+									</h:commandLink>
+								</h:form>
+								<div class="card-body">
+									<h4 class="card-title">
+										<h:form>
+
+											<h:commandLink
+												action="#{indexController.productRedirect(produto)}"
+												value="#{produto.name}"></h:commandLink>
+										</h:form>
+									</h4>
+
+									<h5>
+										<h:outputLabel value="#{produto.price}">
+											<f:convertNumber locale="pt_BR" currencySymbol="R$"
+												type="currency" />
+
+										</h:outputLabel>
+									</h5>
+
+								</div>
+								<div class="card-footer">
+									<small class="text-muted">&#9733; &#9733; &#9733;
+										&#9733; &#9734;</small>
+								</div>
 							</div>
 						</div>
-					</div>
-				</ui:repeat>
-				
+					</ui:repeat>
+
 
 				</div>
 				<!-- /.row -->
@@ -149,6 +173,36 @@
 		</div>
 		<!-- /.container -->
 	</footer>
-
+	<script>
+		$(document).ready(
+				function() {
+					$(".animsition").animsition(
+							{
+								inClass : 'fade-in-right',
+								outClass : 'fade-out-right',
+								inDuration : 2000,
+								outDuration : 1000,
+								linkElement : '.animsition-link',
+								// e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
+								loading : true,
+								loadingParentElement : 'body', //animsition wrapper element
+								loadingClass : 'animsition-loading',
+								loadingInner : '', // e.g '<img src="loading.svg" />'
+								timeout : false,
+								timeoutCountdown : 5000,
+								onLoadEvent : true,
+								browser : [ 'animation-duration',
+										'-webkit-animation-duration' ],
+								// "browser" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+								// The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+								overlay : false,
+								overlayClass : 'animsition-overlay-slide',
+								overlayParentElement : 'body',
+								transition : function(url) {
+									window.location.href = url;
+								}
+							});
+				});
+	</script>
 </h:body>
 </html>

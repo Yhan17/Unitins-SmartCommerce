@@ -6,7 +6,7 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html">
 <h:head>
 	<title>Product List</title>
-	<meta charset="utf-8"/>
+	<meta charset="utf-8" />
 	<link rel="stylesheet"
 		href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.0/css/bootstrap.css" />
 	<link rel="stylesheet"
@@ -20,6 +20,8 @@
 		href="https://cdnjs.cloudflare.com/ajax/libs/material-design-icons/3.0.1/iconfont/material-icons.min.css" />
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.quicksearch/2.3.1/jquery.quicksearch.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/css/animsition.css"  />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/animsition/4.0.2/js/animsition.js"></script>
 	<style>
 ul {
 	list-style-type: none;
@@ -27,6 +29,10 @@ ul {
 </style>
 </h:head>
 <h:body>
+	<div class="animsition-overlay" data-animsition-overlay="true">
+		<a href="./page1" class="animsition-link">animsition link 1</a> <a
+			href="./page2" class="animsition-link">animsition link 2</a>
+	</div>
 	<div id="wrapper" class="animate">
 		<nav
 			class="navbar header-top fixed-top navbar-expand-lg  navbar-dark bg-dark">
@@ -86,13 +92,14 @@ ul {
 			</div>
 		</div>
 		<div class="row">
-			<div class="col" style="height:100%">
+			<div class="col" style="height: 100%">
 				<div class="card">
 					<div class="card-body">
-						<h:messages id="messages" errorStyle="color:red"
-							warnStyle="color:orange"
-							infoStyle="color:white;background-color:green;padding: 5px;border-radius: 5px;margin-left: -50px"
-							globalOnly="false" />
+						<h:messages id="messages" errorClass="alert alert-danger"
+							infoClass="alert alert-success" warnClass="alert alert-warning"
+							errorStyle="list-style-type: none"
+							warnStyle="list-style-type: none"
+							infoStyle="list-style-type: none" globalOnly="false" />
 						<h5 class="card-title">Produtos</h5>
 						<h:form id="formDataTable">
 							<h:dataTable id="dataTable"
@@ -109,7 +116,8 @@ ul {
 								</h:column>
 								<h:column>
 									<f:facet name="header">Descrição</f:facet>
-									<h:outputLabel value="#{obj.description}" />
+									<h:outputLabel styleClass="cell expand-maximum-on-hover"
+										value="#{obj.description}" />
 
 								</h:column>
 								<h:column>
@@ -130,6 +138,8 @@ ul {
 								<h:column>
 									<f:facet name="header">Preço</f:facet>
 									<h:outputLabel value="#{obj.price}">
+										<f:convertNumber locale="pt_BR" currencySymbol="R$"
+											type="currency" />
 
 									</h:outputLabel>
 								</h:column>
@@ -169,12 +179,39 @@ ul {
 	</div>
 
 	<script>
-		$(document).ready(function() {
-			$('.leftmenutrigger').on('click', function(e) {
-				$('.side-nav').toggleClass("open");
-				e.preventDefault();
-			});
-		});
+		$(document).ready(
+				function() {
+					$('.leftmenutrigger').on('click', function(e) {
+						$('.side-nav').toggleClass("open");
+						e.preventDefault();
+					});
+					$(".animsition-overlay").animsition(
+							{
+								inClass : 'overlay-slide-in-top',
+								outClass : 'overlay-slide-out-top',
+								inDuration : 1500,
+								outDuration : 800,
+								linkElement : '.animsition-link',
+								// e.g. linkElement: 'a:not([target="_blank"]):not([href^="#"])'
+								loading : true,
+								loadingParentElement : 'body', //animsition wrapper element
+								loadingClass : 'animsition-loading',
+								loadingInner : '', // e.g '<img src="loading.svg" />'
+								timeout : false,
+								timeoutCountdown : 5000,
+								onLoadEvent : true,
+								browser : [ 'animation-duration',
+										'-webkit-animation-duration' ],
+								// "browser" option allows you to disable the "animsition" in case the css property in the array is not supported by your browser.
+								// The default setting is to disable the "animsition" in a browser that does not support "animation-duration".
+								overlay : true,
+								overlayClass : 'animsition-overlay-slide',
+								overlayParentElement : 'body',
+								transition : function(url) {
+									window.location.href = url;
+								}
+							});
+				});
 
 		$('a').on('click', function() {
 			setTimeout(function() {

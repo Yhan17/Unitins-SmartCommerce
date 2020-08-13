@@ -20,13 +20,21 @@ public class RegisterController extends Controller<User>{
 	}
 
 	public String registrar() {
+		
 		if (validarDados()) {
-			if (dao.create(getEntity())) {
-				limpar();
-				Util.addInfoMessage("Inclusão realizada com sucesso.");
-				return "login.xhtml?faces-redirect=true";
-			} else {
-				Util.addInfoMessage("Erro ao incluir no banco de dados.");
+			UserDAO verificacao = new UserDAO();
+			if(verificacao.verificaEmail(getEntity().getLogin()) == false) {
+				verificacao = null;
+				if (dao.create(getEntity())) {
+					limpar();
+					Util.addInfoMessage("Inclusão realizada com sucesso.");
+					return "login.xhtml?faces-redirect=true";
+				} else {
+					Util.addInfoMessage("Erro ao incluir no banco de dados.");
+					return "";
+				}			
+			}else {
+				Util.addErrorMessage("Já existe um usuário com esse email no sistema");
 				return "";
 			}
 		}
